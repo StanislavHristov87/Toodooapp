@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import {getAuth} from "firebase/auth"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -8,6 +9,7 @@ import { getDatabase } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyA6yW8kV5th1_m29Oj6ZEA01Oj-NLEvU6E",
   authDomain: "toodooapp-5b8ae.firebaseapp.com",
+  databaseURL: "https://toodooapp-5b8ae-default-rtdb.europe-west1.firebasedatabase.app/",
   projectId: "toodooapp-5b8ae",
   storageBucket: "toodooapp-5b8ae.firebasestorage.app",
   messagingSenderId: "958963997811",
@@ -18,3 +20,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getDatabase(app);
+
+export const auth = getAuth(app);

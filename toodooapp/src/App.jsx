@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react';
 import './App.css'
+import { subscribeTodos, addTodo, deleteTodo } from './firebase/todoService';
+import { onAuthStateChanged } from "firebase/auth";
+
+import PostForm from './components/PostForm';
+import TodoItem from './components/TodoItem';
+import Login from './components/Login';
+import { logout } from './firebase/authService';
+import { auth } from './firebase/firebase';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [title, setTitle] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [user, setUser] =useState(null);
+
+
+    useEffect(() => {
+      subscribeTodos(setTodos);
+    }, []);
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+      })
+      return () => unsubscribe();
+    }, []);
 
   return (
     <>
+    {user ? (
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Welcome {user.email}</h1>
+        <button onClick={logout}>Logout</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    ) : (
+      <Login />
+    )}
+     
+      <PostForm title={title} setTitle={setTitle} addTodo={() => addTodo(title) } />
+
+      {todos.map(todo => (
+        <TodoItem  key={todo.id} todo={todo} deleteTodo={deleteTodo}/>
+      ))}
+    
     </>
   )
 }
 
-export default App
+export default App;

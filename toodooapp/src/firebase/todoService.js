@@ -36,3 +36,6 @@ export const deleteTodo = (id) => {
   const todoRef = ref(db, `todos/${id}`);
   remove(todoRef);
 };
+
+// export const userId = auth.currentUser.uid;
+// ref(db, `todos/${userId}`)

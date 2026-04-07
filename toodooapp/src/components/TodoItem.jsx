@@ -1,3 +1,7 @@
+
+import PropTypes from 'prop-types';
+
+
 const TodoItem = ({ todo, deleteTodo }) => {
 
     return (
@@ -11,3 +15,12 @@ const TodoItem = ({ todo, deleteTodo }) => {
 };
 
 export default TodoItem;
+
+TodoItem.propTypes = {
+  todo: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+
+  deleteTodo: PropTypes.func.isRequired,
+};

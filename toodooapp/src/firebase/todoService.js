@@ -2,9 +2,9 @@ import { ref, set, push, onValue, remove } from "firebase/database";
 import { db } from "./firebase";
 
 // ➕ add todo
-export const addTodo = (title) => {
-  const todosRef = ref(db, "todos");
-  const newTodoRef = push(todosRef);
+export const addTodo = (userUid, title) => {
+  const todosRef = ref(db, `todos/${userUid}`);
+  const newTodoRef = push(todosRef, { title });
 
   set(newTodoRef, {
     title: title
@@ -12,8 +12,8 @@ export const addTodo = (title) => {
 };
 
 // 📥 get todos (realtime)
-export const subscribeTodos = (callback) => {
-  const todosRef = ref(db, "todos");
+export const subscribeTodos = (userId, callback) => {
+  const todosRef = ref(db, `todos/${userId}`);
 
   onValue(todosRef, (snapshot) => {
     const data = snapshot.val();
@@ -23,7 +23,8 @@ export const subscribeTodos = (callback) => {
         id: key,
         ...data[key]
       }));
-
+      console.log(typeof callback);
+      
       callback(todosArray); // 👈 това заменя setTodos
     } else {
       callback([]);
@@ -32,10 +33,12 @@ export const subscribeTodos = (callback) => {
 };
 
 // ❌ delete todo
-export const deleteTodo = (id) => {
-  const todoRef = ref(db, `todos/${id}`);
+export const deleteTodo = (userId, id) => {
+    console.log(userId, id);
+  const todoRef = ref(db, `todos/${userId}/${id}`);
+  console.log(userId, id);
   remove(todoRef);
 };
 
-// export const userId = auth.currentUser.uid;
-// ref(db, `todos/${userId}`)
+//  export const userId = auth.currentUser.uid;
+//  ref(db, `todos/${userId}`)

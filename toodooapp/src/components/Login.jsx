@@ -1,25 +1,26 @@
 import { useState } from "react";
-import { login, register } from "../firebase/authService";
+import { login } from "../firebase/authService";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const navigate  =useNavigate();
+
+
+
     const handleLogin = async () => {
+
+
+
         try {
             await login(email, password)
         } catch (err) {
             console.error(err);
         }
-    };
-
-    const handleRegister = async () => {
-        try {
-            await register(email, password);
-        } catch (err) {
-            console.error(err);
-            
-        }
+        navigate('/');
     };
 
     
@@ -30,7 +31,7 @@ const Login = () => {
             <input
             placeholder="Email"
             value={email}
-            onChange={() => (setEmail(email.target.value))}
+            onChange={(e) => (setEmail(e.target.value))}
             />
 
             <input 
@@ -41,8 +42,8 @@ const Login = () => {
             />
 
             <button onClick={handleLogin} >Login</button>
-            <button onClick={handleRegister} >Register</button>
-
+            
+       
 
         </div>
     );

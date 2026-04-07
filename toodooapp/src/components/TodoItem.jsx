@@ -1,17 +1,36 @@
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { updateTodo } from "../firebase/todoService";
 
-import PropTypes from 'prop-types';
+const TodoItem = ({ todo, deleteTodo, userId }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTitle, setMewTitle] = useState(todo.title);
 
+  const handleSave = () => {
+    updateTodo(userId, todo.id, { title: newTitle });
+    setIsEditing(false);
+  };
 
-const TodoItem = ({ todo, deleteTodo }) => {
+  return (
+    <div>
+      {isEditing ? (
+        <>
+          <input
+            value={newTitle}
+            onChange={(e) => setMewTitle(e.target.value)}
+          />
+          <button onClick={handleSave}>Save</button>
+        </>
+      ) : (
+        <>
+          <span>{todo.title}</span>
+          <button onClick={() => setIsEditing(true)}>Edit</button>
+        </>
+      )}
 
-    return (
-        <div>
-            <span>{todo.title}</span>
-            <button onClick={() => deleteTodo(todo.id)}>
-                Delete todo
-            </button>
-        </div>
-    );
+      <button onClick={() => deleteTodo(todo.id)}>Delete todo</button>
+    </div>
+  );
 };
 
 export default TodoItem;
@@ -23,4 +42,5 @@ TodoItem.propTypes = {
   }).isRequired,
 
   deleteTodo: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };

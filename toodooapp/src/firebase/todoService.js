@@ -1,4 +1,4 @@
-import { ref, set, push, onValue, remove } from "firebase/database";
+import { ref, set, push, onValue, remove, update } from "firebase/database";
 import { db } from "./firebase";
 
 // ➕ add todo
@@ -9,6 +9,11 @@ export const addTodo = (userUid, title) => {
   set(newTodoRef, {
     title: title
   });
+};
+
+export const updateTodo = (userId, id, data) => {
+    const todoRef = ref(db, `todos/${userId}/${id}`);
+    return update(todoRef, data);
 };
 
 // 📥 get todos (realtime)

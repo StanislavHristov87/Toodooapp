@@ -61,6 +61,7 @@ function App() {
                       key={todo.id}
                       todo={todo}
                       deleteTodo={(id) => deleteTodo(user.uid, id)}
+                      userId={user.uid}
                     />
                   ))}
                 </div>

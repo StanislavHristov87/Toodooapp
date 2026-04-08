@@ -7,7 +7,8 @@ export const addTodo = (userUid, title) => {
   const newTodoRef = push(todosRef, { title });
 
   set(newTodoRef, {
-    title: title
+    title: title,
+    completed: false
   });
 };
 
@@ -34,6 +35,13 @@ export const subscribeTodos = (userId, callback) => {
     } else {
       callback([]);
     }
+  });
+};
+
+export const toggleTodo = (userId, id, completed) => {
+  const todoRef = ref(db, `todos/${userId}/${id}`);
+  return update(todoRef, {
+    completed: !completed
   });
 };
 

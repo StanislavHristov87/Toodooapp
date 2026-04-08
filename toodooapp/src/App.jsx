@@ -11,8 +11,8 @@ import Profile from "./components/Profile";
 import Todos from "./components/Todos";
 
 function App() {
-  const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([]);
+  const [title, setTitle] = useState("");
   const [user, setUser] = useState(null);
 
   // const navigate = useNavigate();
@@ -42,33 +42,37 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/todos" element={<Todos todos={todos}
-  setTodos={setTodos}
-  title={title}
-  setTitle={setTitle}
-  addTodo={addTodo}
-  deleteTodo={deleteTodo}
-  user={user}/>} />
+          <Route
+            path="/profile"
+            element={<Profile user={user} logout={logout} />}
+          />
+          <Route
+            path="/todos"
+            element={
+              <Todos
+                todos={todos}
+                setTodos={setTodos}
+                title={title}
+                setTitle={setTitle}
+                addTodo={addTodo}
+                deleteTodo={deleteTodo}
+                user={user}
+                setUser={setUser}
+              />
+            }
+          />
           <Route
             path="/"
             element={
               user ? (
-                 <div className="max-w-2xl mx-auto p-4">
-  <Profile user={user} logout={logout} />
-  
-</div>
-
+                <div className="max-w-2xl mx-auto p-4">
+                  <Profile />
+                </div>
               ) : (
                 <Login />
-                
-                
               )
-              
             }
-            
           />
-         
         </Routes>
       </BrowserRouter>
     </>

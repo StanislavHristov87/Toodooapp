@@ -5,6 +5,7 @@ import TodoItem from "./TodoItem";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+
 const Todos = ({title, setTitle, addTodo, deleteTodo, todos, user, setUser }) => {
 
     const [loading, setLoading] = useState(true);

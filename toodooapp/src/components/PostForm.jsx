@@ -29,7 +29,7 @@ const PostForm = ({ title, setTitle, addTodo }) => {
   return (
     <form onSubmit={addTodo}>
       <input
-      className="px-5 py-2 text-white rounded hover:bg-blue-600 transition shadow"
+      className="px-5 py-2 text-gray rounded hover:bg-blue-600 transition shadow"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Add a task"

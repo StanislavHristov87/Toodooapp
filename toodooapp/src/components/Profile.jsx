@@ -29,7 +29,7 @@ const Profile = ({ user, logout }) => {
     }
   };
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <p className="bg-red-700 mt-10 mb-10 rounded font-bold" >This is an app for people who want to organize their time and tasks !</p>;
   return (
     <div>
       <div className="max-w-xl mx-auto p-4 bg-green-800 rounded shadow">

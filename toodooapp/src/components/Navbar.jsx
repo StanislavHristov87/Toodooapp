@@ -8,7 +8,7 @@ const Navbar = ({ user, logout }) => {
       className="flex justify-between
          items-center p-4 bg-green-800 rounded text-white"
     >
-      <h1 className="text-xl font-bold">Todo App</h1>
+      <h1 className=" ml-11 text-xl font-bold">Todo App</h1>
 
       <div
         className="flex gap-4 

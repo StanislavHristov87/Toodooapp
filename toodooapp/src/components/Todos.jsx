@@ -47,17 +47,17 @@ const Todos = ({
           className="mt-11 p-2 border rounded w-full mb-4"
         />
       </div>
-      <div className=" mt-5 flex gap-2 mb-4">
+      <div className=" mt-5 mb-12 flex gap-2 mb-4">
   <button onClick={() => setFilter("all")} className="px-3 py-1 bg-green-500 rounded">
-    All Todos
+    All
   </button>
 
   <button onClick={() => setFilter("active")} className="px-3 py-1 bg-green-500 rounded">
-    Active Todos
+    Active
   </button>
 
   <button onClick={() => setFilter("completed")} className="px-3 py-1 bg-green-500 rounded">
-    Completed Todos
+    Completed
   </button>
 </div>
 
